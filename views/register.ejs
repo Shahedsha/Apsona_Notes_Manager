@@ -1,193 +1,257 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Registration</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Lora&family=Yeseva+One&display=swap");
-* {
-  --hibiscus-love: #fc465c;
-  --fine-ii: #f9b198;
-  --afl: #fac8af;
-  --mexican-sky: #cfdddd;
-  --brasillia-peach: #facb85;
-  --free: #33032d;
-  --captured: #2b2120;
-  --primary-color: var(--brasillia-peach);
-  --secondary-color: var(--hibiscus-love);
-  --tertiary-color: var(--fine-ii);
-  --quadrary-color: var(--afl);
-  --bg-color: var(--mexican-sky);
-  --text-color: var(--free);
-  --header-color: var(--captured);
-  --error-color: var(--hibiscus-love);
-  --success-color: #73d12e;
-  box-sizing: border-box;
-}
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Registration form</title>
+     <style>
+         @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&family=Syne:wght@800&display=swap");
+ 
+ * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: "Poppins", sans-serif;
+ }
+ 
+ body {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   background:white;
+ }
+ 
+ .box {
+   position: relative;
+   width: 400px;
+   height: 570px;
+   background: #49e30c;
+   border-radius: 18px;
+   overflow: hidden;
+ }
+ 
+ .box::before {
+   content: "";
+   position: absolute;
+   width: 4000px;
+   height: 470px;
+   top: -50%;
+   left: -50%;
+   background: linear-gradient(
+     0deg,
+     transparent,
+     transparent,
+     #45f3ff,
+     #45f3ff,
+     #45f3ff
+   );
+   z-index: 1;
+   transform-origin: bottom right;
+   animation: animate 6s linear infinite;
+ }
+ 
+ .box::after {
+   content: "";
+   position: absolute;
+   width: 400px;
+   height: 470px;
+   top: -50%;
+   left: -50%;
+   background: linear-gradient(
+     0deg,
+     transparent,
+     transparent,
+     #ffff00,
+     #ffff00,
+     #ffff00
+   );
+   z-index: 1;
+   transform-origin: bottom right;
+   animation: animate 6s linear infinite;
+   animation-delay: -3s;
+ }
+ 
+ .borderLine {
+   position: absolute;
+   top: 0;
+   inset: 0;
+ }
+ 
+ .borderLine::before {
+   content: "";
+   position: absolute;
+   width: 400px;
+   height: 470px;
+   top: -50%;
+   left: -50%;
+   background: linear-gradient(
+     0deg,
+     transparent,
+     transparent,
+     #fc0f8d,
+     #fc0f8d,
+     #fc0f8d
+   );
+   z-index: 1;
+   transform-origin: bottom right;
+   animation: animate 6s linear infinite;
+ }
+ 
+ @keyframes animate {
+   0% {
+     transform: rotate(0deg);
+   }
+   100% {
+     transform: rotate(360deg);
+   }
+ }
+ 
+ .box form {
+   position: absolute;
+   inset: 4px;
+   background: #222222;
+   padding: 50px 40px;
+   border-radius: 18px;
+   z-index: 2;
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .box form h2 {
+   color: #fff;
+   font-weight: 500;
+   text-align: center;
+   letter-spacing: 0.1em;
+ }
+ 
+ .box form .inputBox {
+   position: relative;
+   width: 300px;
+   margin-top: 35px;
+ }
+ 
+ .box form .inputBox input {
+   position: relative;
+   width: 100%;
+   padding: 20px 10px 10px;
+   background: transparent;
+   outline: none;
+   border: none;
+   box-shadow: none;
+   color: rgb(49, 229, 49);
+   font-size: 1em;
+   letter-spacing: 0.05em;
+   transition: 0.5s;
+   z-index: 10;
+ }
+ 
+ .box form .inputBox span {
+   position: absolute;
+   left: 0;
+   padding: 20px 0px 10px;
+   pointer-events: none;
+   color: #8f8f8f;
+   font-size: 1em;
+   letter-spacing: 0.05em;
+   transition: 0.5s;
+ }
+ 
+ .box form .inputBox input:valid ~ span,
+ .box form .inputBox input:focus ~ span {
+   color: #fff;
+   font-size: 0.75em;
+   transform: translateY(-34px);
+ }
+ 
+ .box form .inputBox i {
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 2px;
+   background: #fff;
+   border-radius: 7px;
+   overflow: hidden;
+   transition: 0.5s;
+   pointer-events: none;
+ }
+ 
+ .box form .inputBox input:valid ~ i,
+ .box form .inputBox input:focus ~ i {
+   height: 44px;
+ }
+ 
+ .box form .links {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 20px;
+ }
+ 
+ .box form .links a {
+   margin: 15px 12px 20px 0;
+   font-size: 0.75em;
+   color: #8f8f8f;
+   text-decoration: none;
+ }
+ 
+ .box form .links a:hover,
+ .box form .links a:nth-child(2) {
+   color: #fff;
+ }
+ 
+ .box form input[type="submit"] {
+   border: none;
+   outline: none;
+   padding: 9px 25px;
+   background: #fff;
+   cursor: pointer;
+   font-size: 0.9em;
+   border-radius: 7px;
+   font-weight: 600;
+   width: 100px;
+   margin-top: 10px;
+   transition: 0.6s;
+ }
+ 
+ .box form input[type="submit"]:hover {
+   background-color: #31e721;
+ }
+ 
+ .box form input[type="submit"]:active {
+   opacity: 0.8;
+ }
+ 
+     </style>
+ </head>
+ <body>
+     <div class="box">
+         <span class="borderLine"></span>
+         <form action="/register" method="post">
+           <h2>Sign Up</h2>
+           <div class="inputBox">
+             
+           </div>
+           <div class="inputBox">
+             <input type="text" id="username" name="name" required="required">
+             <span>Username</span>
+             <i></i>
+           </div>
+           <div class="inputBox">
+             <input type="email" id="email" name="email" required="required">
+             <span>Email</span>
+             <i></i>
+           </div>
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Yeseva One", Georgia, cursive;
-  color: var(--header-color);
-}
-
-body {
-        background: url("https://images.unsplash.com/photo-1485802007047-7774de7208e5?dpr=1&auto=compress,format&fit=crop&w=1800&h") no-repeat center center fixed;
-        background-size: cover;
-        font-family: 'Lora', 'Times New Roman', serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-flow: column nowrap;
-        min-height: 100vh;
-        }
-
-
-.container {
-  width: 400px;
-  border-radius: 0.6em;
-  padding: 20px;
-  background-color: var(--primary-color);
-  box-shadow: 20px 20px 60px #97a1a1, -20px -20px 60px #ffffff;
-  margin: 20px auto;
-}
-
-.form {
-  padding: 30px 40px;
-}
-
-.form h2 {
-  text-align: center;
-  margin: 0 0 20px;
-}
-
-.form-control {
-  margin-bottom: 10px;
-  padding-bottom: 20px;
-  position: relative;
-}
-
-.form-control label {
-  color: var(--text-color);
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-control input {
-  border-radius: 6px;
-  background: var(--primary-color);
-  box-shadow: inset 3px 3px 7px #e9bd7c, inset -3px -3px 7px #ffd98e;
-  min-height: 2.618em;
-  border: var(--quadrary-color) solid 2px;
-  display: block;
-  width: 100%;
-  font-size: 14px;
-  padding: 10px;
-}
-
-.form-control input:focus {
-  outline: 0;
-  border-color: var(--tertiary-color);
-}
-
-.form-control.success input {
-  border-color: var(--success-color);
-}
-
-.form-control.error input {
-  border-color: var(--error-color);
-}
-
-.form-control small {
-  color: var(--error-color);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  visibility: hidden;
-}
-
-.form-control.error small {
-  visibility: visible;
-}
-
-.form button {
-  cursor: pointer;
-  background: var(--secondary-color);
-  box-shadow: 4px 4px 8px #c19c66, -4px -4px 8px #fffaa4;
-  border: 1px solid #ec263c66;
-  color: #fff;
-  font-size: 16px;
-  padding: 0.618em 1.2em;
-  border-radius: 0.4em;
-  font-family: "Yeseva One", Georgia, cursive;
-  display: block;
-  margin-top: 1.2em;
-  width: 100%;
-}
-
-.submit-button-wrapper {
-  text-align: center;
-}
-
-.submit-button-wrapper input {
-  border: none;
-  border-radius: 4px;
-  background-color: #f23292;
-  color: white;
-  text-transform: uppercase;
-  padding: 10px 60px;
-  font-weight: 500;
-  letter-spacing: 2px;
-}
-
-.submit-button-wrapper input:hover {
-  background-color: #d30069;
-}
-
-.form button:active,
-.form button:focus {
-  outline: 0;
-  background-color: #fc364c;
-}
-</style>
-</head>
-<body>
-    
-  <div class="container">
-    <form   action="/register" class="form"  method="post">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Home</a>
-            <a class="navbar-brand" href="/register">Signup</a>
-            <a class="navbar-brand" href="/login">Login</a>
-          </nav>
-      <h2>Hey bub, ya gotta register!</h2>
-      <div class="form-control">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="name" placeholder="Enter username" />
-      </div>
-      <div class="form-control">
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="Enter email" />
-      </div>
-      <div class="form-control">
-        <label for="phone">phone number</label>
-        <input type="Tel" id="phone" name="phone" placeholder="Enter Phone number" />
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter password" />
-      </div>
-      </div>
-      <div class="submit-button-wrapper">
-        <input type="submit">
-      </div>
-    </form>
-  </div>
-
-
-  </body>
-</html>
-
+           <div class="inputBox">
+             <input type="password" id="password" name="password" required="required">
+             <span>Password</span>
+             <i></i>
+           </div>
+           
+           <input type="submit">
+         </form>
+       </div>
+       </div>
+ </body>
+ </html>

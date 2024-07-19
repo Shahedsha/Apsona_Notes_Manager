@@ -23,7 +23,7 @@ body{
 .todo-value{
     min-width: 600px;
     height: 13rem;
-    background-color: rgb(164, 232, 232);
+    background-color: #a4e8e8;
     border-radius: 5px 0 5px 0;
     border:solid 2px green;
     color: rgb(238, 77, 19);
@@ -52,12 +52,11 @@ h1{
     font-size: 2rem;
 }
 input{
-    min-width: 600px;
+    min-width: 400px;
     height: 2.5rem;
     border-radius: 10px 0 10px 0;
     border:solid 2px rgb(37, 165, 37);
     color: rgb(238, 93, 40);
-    padding-left: 1rem;
     font-size: 1.2rem;
     outline: none;
 }

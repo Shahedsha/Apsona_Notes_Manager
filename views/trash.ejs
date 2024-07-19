@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/6194/6194029.png" type="image/icon type">
+    <script src="https://kit.fontawesome.com/0d7cc8bb21.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/6194/6194029.png" type="image/icon type">
+    <script src="https://kit.fontawesome.com/0d7cc8bb21.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+    <title>Todo list</title>
+    <style>
+      
+      body{ 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    background: grey; 
+    background-image: url("https://pbs.twimg.com/media/E3_guXtX0AUihWN.jpg");
+  }
+  .container{
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+.todo-container{
+width: 102%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: row;
+padding-top: 0.7rem;
+}
+.todo-value{
+min-width: 600px;
+height: 13rem;
+background-color: rgb(164, 232, 232);
+border-radius: 5px 0 5px 0;
+border:solid 2px green;
+color: rgb(238, 77, 19);
+padding-left: 1rem;
+font-size: 1.5rem;
+outline: none;
+
+}
+.todo-delete{
+min-width: 60px;
+height: 2rem;
+border-radius: 10px 0 0px 0;
+background-color: rgb(84, 216, 84);
+border:solid 2px green;
+color: rgb(12, 12, 12);
+padding-left: 2rem;
+padding-right: 2rem;
+font-size: 1.2rem;
+font-weight:bolder ;
+outline: none;   
+text-decoration: none;
+}
+
+  input{
+min-width: 600px;
+height: 2.5rem;
+border-radius: 10px 0 10px 0;
+border:solid 2px rgb(37, 165, 37);
+color: rgb(238, 93, 40);
+padding-left: 1rem;
+font-size: 1.2rem;
+outline: none;
+}
+button{
+min-width: 60px;
+height: 2.3rem;
+border-radius: 10px 0 0px 0;
+background-color: rgb(84, 216, 84);
+border:solid 2px green;
+color: rgb(12, 12, 12);
+padding-left: 2rem;
+padding-right: 2rem;
+font-size: 1.2rem;
+font-weight:bolder ;
+outline: none;
+
+}
+   .card{
+  margin-top: 50px;
+  background:rgb(164, 232, 232);
+
+  color:rgb(238, 77, 19);
+
+  display: grid;
+  grid-template-columns: 400px;
+  grid-template-rows: 30px 100px 80px;
+  grid-template-areas: "image" "text" "bottom";
+  font-family: roboto;
+  border-radius: 18px;
+  box-shadow: -1rem 0 3rem #000;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.8s ease;
+  } 
+
+  .card-discription{
+    grid-area: text;
+    font-size: 150%;
+    padding: 0 5px 0 5px;
+    font-family: roboto;
+    margin-top: -10px;
+    align-self: center;
+  }
+  
+  .card:hover{
+    transform: translateY(-1.5rem);
+  }
+  .card:hover~.card{
+    transform: translateX(70px);
+  }
+  .card:not(:first-child){
+    margin-left: -50px;
+  }      
+.navbar {
+    background-color: #faf8f8;
+    position: relative;
+    flex:content;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+background: rgb(255, 255, 255);
+
+}
+
+.navbar li {
+    display: inline-block;
+}
+
+.navbar li a {
+    color: rgb(10, 0, 0);
+    display: block;
+    padding: 20px 30px;
+    text-decoration: none;
+}
+
+.navbar ul ul {
+    position: absolute;
+    display: none;
+    background: #fff;
+    margin-top: -1px;
+}
+
+.navbar ul ul li {
+    display: block;
+
+}
+
+.navbar li:hover ul {
+    display:block;
+}
+.navbar #sha :hover ul{
+    display: none;
+}
+
+.navbar ul ul li a:hover {
+    background-color:rgb(252, 253, 255);
+}
+h1{
+    color: rgb(10, 185, 10);
+    padding: 3rem;
+    font-size: 2.5rem;
+    font-family: 'Prompt', sans-serif;
+}
+      .header-search-block {
+    position: initial;
+  }
+  .header-search-block input {
+    font-size: 16px;
+    color: #333;
+    width: 300px;
+    height: 52px;
+    float: none;
+    font-weight: 400;
+    background: #fff;
+    border: 2px solid #eee;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    padding: 0 0px 0 20px;
+  }
+  .header-search-block input:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .header-search-block button {
+    position: initial;
+    top: 0;
+    right: 0;
+    background: #62ab00;
+    border: 0;
+    line-height: 52px;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 0 35px;
+    color: #fff;
+    border-radius: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding-bottom: 50px;
+  }
+               
+      </style>
+</head>
+<body>
+         <nav class = "navbar">
+            <div  style="align-items: flex-start;">
+                <h1 style="padding: 0rem;">Apsona Notes Manager</h1>
+            </div>
+         <div style="padding-left: 10px;">
+            <ul style="padding-bottom: 0;">
+              <li style="padding-top: 0px;padding-bottom: 0px;">
+              <a  href = "/">HOME <i class="fa fa-home"></i></a>
+              <li>
+              <a  href = "/trash">TRASHBIN<i class="fas fa-trash me-2" style="color: palevioletred;"></i></a>
+                 
+                 <li>
+                   <a href = "#">CONNECT <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                   <ul style="width: 250px;margin-top: 3px;border: 2px solid #eee;">
+                     <a style="font-size: large;font-weight:500;" href = "https://www.linkedin.com/in/shahedsha-shaik-91949b237/">Linkedin</a>
+                     <a style="font-size: large;font-weight:500;" href = "https://github.com/shahedsha">Github</a>
+                     <a style="font-size: large;font-weight:500;" href = "mailto:shahedshask85@gmail.com">Gmail</a>
+                    </ul>
+                   </li>
+                   
+                <li style="padding-top: 0px;padding-bottom: 0px;">
+                    <% var main_data=data1 %>
+                    <% var Currentuser=JSON.parse(localStorage.getItem(data1)) %>
+                        <% if(Currentuser==null) { %>
+                            <a class="navbar-brand" href="/login">Login<i class="fa fa-user"></i></a>
+                            <% } %>
+                                <% if(Currentuser!=null) { %>
+                                   <p class="navbar-brand"> 
+                                    <%= Currentuser.name %><i class="fa fa-chevron-down dropdown-arrow"></i> </p>
+                                   <ul> <a class="navbar-brand" style="height: 10px; margin-top: -30px;" href="/logout">Logout</a></ul>
+                                    <% } %>
+                </li> 
+            </ul>
+        </div>
+        </nav>  
+       
+        <div style="display: flex;justify-content: flex-start; flex-wrap: nowrap;">
+            
+                <div style="display: flex; padding-top: 30px;margin-left: 80px;margin-right: 300px;" class="header-search-block">
+                    <form action="/trashsearchbar" method="POST" style="display: flex;">
+                    <input style="position: initial;" type="text" placeholder="Search related Notes here" name="search">
+                    <button type="submit">Search</button>
+                </form>
+                </div>
+                <div style="padding-top: 20px;margin-left: 100px;">
+                </div>
+        </div>
+        <!-- <div class="container">
+            <h1>Todo List</h1>
+            <form action="/" method="POST" autocomplete="off">
+                <input type="text" placeholder="Add Do's..." name="Todo" required>
+                <button type="submit">Add</button>
+            </form>
+        </div> -->
+            <% if(data){ %>
+                <% data.forEach(Note=>{ %>
+                    <div class="card">
+                        <div class="card-discription">
+                            <p><%= Note.note %></p>
+                        </div>
+                        <div class="tags" style="display: flex;">
+                            <% Note.tags.forEach(tag => { %>
+                                    <p style="margin: 2px;background-color: #f0f0f0;color: #333;border: 1px solid #ccc;border-radius: 12px;padding: 4px 8px;margin: 4px 4px 0 0;font-size: 12px;"><%= tag %></p>
+                            <% }) %>
+                        </div>
+
+                        
+                    </div>
+                <% }) %>
+            <% } %>
+</body>
+</html>

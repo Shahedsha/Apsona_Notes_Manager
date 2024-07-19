@@ -1,7 +1,9 @@
 const mongoose=require("mongoose");
 const bodyParser=require("body-parser")
 const express=require("express");
-const ChannelModel=require("./models/channel");
+const NotesModel=require("./models/notes");
+const TrashModel=require("./models/trash");
+const UserModel=require("./models/users");
 const LocalStorage = require("node-localstorage").LocalStorage;
 localStorage = new LocalStorage("./scratch");
 const cookieparser = require('cookie-parser')
@@ -15,7 +17,7 @@ app.use(express.json())
 app.use(bodyParser.json())
 app.use(cookieparser())
 
-const dbUrl="mongodb+srv://Shahid:idiot@mongo.yv6djp0.mongodb.net/A_Todo?retryWrites=true&w=majority";
+const dbUrl="mongodb+srv://Shahid:idiot@mongo.yv6djp0.mongodb.net/Apsona?retryWrites=true&w=majority";
 const connectionParams={
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -29,26 +31,16 @@ mongoose
         console.log("Errror:");
     });
 
-    const userSchema=mongoose.Schema(
-        {
-            name:String,
-            email:String,
-            password:String
-        }
-    )
-const User=mongoose.model("User",userSchema)
-
+  
 app.listen(PORT,()=>{
         console.log(`Listening on PORT: ${PORT}`)
     })
 
      app.get("/", (req,res)=>{
-     
         var user= req.cookies.Userstatus;
         
-        ChannelModel.find()
+        NotesModel.find({userId:user})
         .then(result=>{
-            console.log(user)
             res.render("index",{data:result,data1:user});
         })
      })
@@ -69,7 +61,7 @@ app.listen(PORT,()=>{
      {
         const email=req.body.email
         const password=req.body.password
-        User.findOne({email:req.body.email})
+        UserModel.findOne({email:req.body.email})
             .then((result)=>{
                 if(result){
                     if(password==result.password){
@@ -78,7 +70,6 @@ app.listen(PORT,()=>{
                         var user = req.cookies.Userstatus;
                         localStorage.setItem(email,JSON.stringify(result));
                         res.redirect('/')
-                        
                     }
                     else{
                         res.json("Enter correct password")
@@ -98,18 +89,14 @@ app.listen(PORT,()=>{
     })
     app.post("/register",(req,res)=>
     {
-        const name=req.body.name
-        const email=req.body.email
-        const password=req.body.password
-        User.findOne({ email:req.body.email})
+        UserModel.findOne({ email:req.body.email})
         .then((result)=>{
-        
             if(result){
               res.render("login",{data:result})
             }
             else{
-                  const user=new User()
-                  
+                  const user=new UserModel()
+                  user.name=req.body.name;
                   user.email=req.body.email;
                   user.password=req.body.password;
                   user.save()
@@ -118,56 +105,106 @@ app.listen(PORT,()=>{
             })
         })
 
-        app.post("/",(req,res)=>{
-        var channelModel=new ChannelModel()
-        channelModel.todo=req.body.Todo;
-        channelModel.save()
-        .then((data)=>{
-            res.redirect("/");
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    })
+ 
 
     app.get("/delete/:id",(req,res)=>{
-        ChannelModel.findByIdAndDelete(req.params.id)
-        .then(()=>{
-            return res.redirect('/')
-        })
-        .catch((err)=>{
-            return res.status(500).send(err)
-        })
-    })
-    
-  
-
-    app.get("/update/:id",(req,res)=>{
-        ChannelModel.findById(req.params.id)
+        NotesModel.findById(req.params.id)
         .then((result)=>{
-            res.render("update",data=result)
-        })
+            var trashModel=new TrashModel()
+            trashModel.userId=result.userId;
+            trashModel.note=result.note;
+            trashModel.tags=result.tags;
+            trashModel.save()
+            .then(()=>{
+                NotesModel.findByIdAndDelete(req.params.id)
+                    .then(()=>{
+                    res.redirect('/')
+                })
         .catch((err)=>{
-            console.log(err)
+            res.status(500).send(err)
         })
-    })
-    
-    app.post("/update/todo/:id",(req,res)=>{
-        const a=req.body.Todo;
-         ChannelModel.findByIdAndUpdate(req.params.id,{todo:a})
-
-        .then(()=>{
-            res.redirect("/");
+            })
         })
-        .catch((err)=>console.log(err));
-    
-    
+        
     })
 
 
-    
+    app.get("/change/:id",(req,res)=>{
+        let dumbo=req.params.id;
+        NotesModel.findById(dumbo)
+            .then((result)=>{
+                var sha=result.backgroundColor
+                if (sha=="#a4e8e8") {
+                    let a="#e8a4d8";
+                    NotesModel.findByIdAndUpdate(dumbo,{backgroundColor:a})
+                    .then(()=>{
+                        res.redirect('/')
+                    })
+                } else {
+                    let a="#a4e8e8";
+                    NotesModel.findByIdAndUpdate(dumbo,{backgroundColor:a})
+                    .then(()=>{
+                        res.redirect('/')
+                    })
+                }
+                 
+            })
+            
+    })
+
+
+  app.get("/trash",(req,res)=>{
+    var user= req.cookies.Userstatus;
+        TrashModel.find({userId:user})
+        .then(result=>{
+            res.render("trash",{data:result,data1:user});
+        })
+  })
+
+
+app.get("/new",(req,res)=>{
+    var user= req.cookies.Userstatus;
+    if (!user) {
+        res.send("please login to continue")
+    }
+    res.render("add",{data1:user})
+})
+
+
+app.post("/new",(req,res)=>{
+    var noteModel=new NotesModel()
+    noteModel.userId=req.cookies.Userstatus;
+    noteModel.note=req.body.note;
+    noteModel.tags=req.body.tags.split(",");
+    noteModel.save()
+    .then((data)=>{
+        res.redirect("/");
+    })
+    .catch((err)=>{
+        res.send("Sorry, You can only give upto 9 Tags")
+    })
+})
 
 
 
+app.post("/searchbar",(req,res)=>{
+    var user= req.cookies.Userstatus;
+    NotesModel.find({userId:user,$or: [{ note:{ $regex: req.body.search, $options: 'i' } },{tags: { $elemMatch: { $regex: req.body.search, $options: 'i' } }}]})
+    .then((result)=>{
+        res.render("index",{data:result,data1:user})
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
 
-
+app.post("/trashsearchbar",(req,res)=>{
+    var user= req.cookies.Userstatus;
+    TrashModel.find({userId:user,$or: [{ note:{ $regex: req.body.search, $options: 'i' } },{tags: { $elemMatch: { $regex: req.body.search, $options: 'i' } }}]})
+    .then((result)=>{
+        res.render("trash",{data:result,data1:user})
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
